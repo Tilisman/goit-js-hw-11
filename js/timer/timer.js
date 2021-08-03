@@ -24,7 +24,7 @@ let finishTime = 0;
 function onDataInput() {
     const dateEntered = new Date(this.value);
     finishTime = dateEntered.getTime();
-    refs.inputData.setAttribute("readonly", 1)
+    //refs.inputData.setAttribute("readonly", 1)
 };
 
 class Timer {
