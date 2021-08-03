@@ -24,7 +24,6 @@ let finishTime = 0;
 function onDataInput() {
     const dateEntered = new Date(this.value);
     finishTime = dateEntered.getTime();
-    //refs.inputData.setAttribute("readonly", 1)
 };
 
 class Timer {
@@ -35,18 +34,18 @@ class Timer {
     }
 
     start() {
-        if (this.isActive) { //проверяет если таймер уже активен, то не дает его запустить снова
+        if (this.isActive) { 
             return;
         }
-        refs.startBtn.disabled = true; //если таймер запускается -кнопка запуска становится неактивной
-        this.intervalId = setInterval(() => {  //intervalId необходим чтоб остановить таймер(обратиться к нему)
+        refs.startBtn.disabled = true; 
+        this.intervalId = setInterval(() => {  
             const currentTime = Date.now();
             const deltaTime = finishTime - currentTime - 10800000;
-            const time = this.convertMs(deltaTime); //конвертирует мс в правильный формат даты
+            const time = this.convertMs(deltaTime); 
             if (deltaTime == null) {
                 stop()
             };
-            this.onTick(time); //передает структурирован параметры даты 
+            this.onTick(time);
         }, 1000);
     }
 
@@ -55,10 +54,7 @@ class Timer {
         this.isActive = false;
         startBtn.disabled = false;
     }
-
-    //переводит мс в формат день:час:мин:сек
     convertMs(ms) {
-        // Number of milliseconds per unit of time
         const second = 1000;
         const minute = second * 60;
         const hour = minute * 60;
@@ -76,17 +72,15 @@ class Timer {
         return { days, hours, minutes, seconds };
     }
 
-    //добавляет нолик в формат даты 00:00:00:00 вместо 0:0:0:0
     pad(value) {
         return String(value).padStart(2, '0');
     };
 }
 
 const timer = new Timer({
-    onTick: updateClockFace //передаем как свойство таймера
+    onTick: updateClockFace 
 });
 
-//добавляет время таймера в интерфейс (HTML)
 function updateClockFace({ days, hours, minutes, seconds }) {
     refs.timerDays.textContent = `${days}`;
     refs.timerHours.textContent = `${hours}`;
